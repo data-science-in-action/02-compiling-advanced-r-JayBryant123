@@ -3,8 +3,8 @@ title: "Problems and solutions"
 author: "Tian Chao"
 date: "2020/3/20"
 output:
-  pdf_document: default
   word_document: default
+  pdf_document: default
   html_document: default
 ---
 
@@ -14,31 +14,57 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## 准备工作
 
-通过https://github.com/hadley/adv-r/将仓库git到本地，安装R包Knit,需要安装生成pdf的工具MikTex和Pandoc。在RStudio中设置编译引擎。
-# 安装必要包
-install.packages('rmarkdown')
-install.packages('devtools')
-devtools::install_github("hadley/sloop")
-devtools::install_github("hadley/emo")
-install.packages("tinytex")
-tinytex::install_tinytex()  # install TinyTeX
+# 下载源代码
 
-## 找不到"xelatex"
-重新安装MikTex并更新到最新版本。
+通过 https://github.com/hadley/adv-r/将仓库git到本地。
 
-## 安装提示的R包
+# 安装必要包及软件
+
+安装R包Knit,需要安装生成pdf的工具MikTex和Pandoc，在RStudio中设置编译引擎。
+通过install.packages命令安装rmarkdown,Knit,devtools
+
+## 运行命令
+
+devtools::install_github("hadley/sloop") 
+devtools::install_github("hadley/emo") 
+bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book") 
+
+## 遇到的问题及解决办法
+
+# 错误提示：Failed to install "emo" from Github
+
+通过git运行以下命令
+$ git config --global http.sslBackend "openssl"
+$ git config --global http.sslCAInfo E:/R/R-3.6.1/library/openssl/cacert.pem
+
+# 安装错误提示的R包
+
 通过install.packages()安装了一些缺失bookdown, lobstr,bench, dbplyr等R包。
 
-## LaTeX failed to compile
-可以尝试两种方法，第一种为更新所有R和Latex包以下内容
+# 错误提示：latex fail to compile...
+
+可以尝试两种方法：
+
+第一种方法：
 update.packages(ask = FALSE, checkBuilt = TRUE)  # update R packages
 tinytex::tlmgr_update()  # update LaTeX packages
+
 第二种方法为：
 tinytex::reinstall_tinytex()
-经过尝更新包并不能解决问题，在R中编辑以下代码：
+经过尝更新包并不能解决问题，运行以下命令：
 options(tinytex.verbose = TRUE)
 
-## 仍未解决
+# 错误提示：Quitting from lines 223-235 (Introduciton.Rmd)
+
+在第224行将代码更改为
+contributors <- read.csv("contributors.csv", stringsAsFactors = FALSE,encoding = "UTF-8")
+
+# 错误提示：Fonts cannot be found
+
+从网上下载`Inconsolate` 和 `Andale Mono`字体
+
+
+## 问题解决，成功编译。
 
 
 
