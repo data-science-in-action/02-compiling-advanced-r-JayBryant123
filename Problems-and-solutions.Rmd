@@ -1,0 +1,42 @@
+---
+title: "Problems and solutions"
+author: "Tian Chao"
+date: "2020/3/20"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 准备工作
+
+通过https://github.com/hadley/adv-r/将仓库git到本地，安装R包Knit,需要安装生成pdf的工具MikTex和Pandoc。在RStudio中设置编译引擎。
+# 安装必要包
+install.packages('rmarkdown')
+install.packages('devtools')
+devtools::install_github("hadley/sloop")
+devtools::install_github("hadley/emo")
+install.packages("tinytex")
+tinytex::install_tinytex()  # install TinyTeX
+
+## LaTeX failed to compile
+可以尝试两种方法，第一种为更新所有R和Latex包以下内容
+update.packages(ask = FALSE, checkBuilt = TRUE)  # update R packages
+tinytex::tlmgr_update()  # update LaTeX packages
+第二种方法为：
+tinytex::reinstall_tinytex()
+经过尝更新包并不能解决问题，在R中编辑以下代码：
+options(tinytex.verbose = TRUE)
+
+## 安装提示的R包
+通过install.packages()安装了一些缺失bookdown, lobstr,bench, dbplyr等R包。
+
+## 找不到"xelatex"
+重新安装MikTex并更新到最新版本。
+
+## 字体错误
+找不到字体Inconsolata 和 AndaleMono，下载安装报错字体。
